@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Thread</title>
+  <style>
+    :root {
+      --red: #CC0000;
+      --black: #1A1A1A;
+      --grey: #666666;
+      --light: #F7F7F7;
+      --border: #E0E0E0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', serif;
+      color: var(--black);
+      background: #fff;
+      line-height: 1.7;
+    }
+
+    header {
+      border-bottom: 3px solid var(--red);
+      padding: 32px 0 24px;
+      margin-bottom: 48px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .wordmark {
+      font-family: 'Georgia', serif;
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .wordmark span {
+      color: var(--red);
+    }
+
+    .tagline {
+      font-size: 13px;
+      color: var(--grey);
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .doc-title {
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--black);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .doc-meta {
+      font-size: 13px;
+      color: var(--grey);
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--black);
+      margin: 36px 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    p {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin: 0 0 16px 24px;
+    }
+
+    ul li {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    footer {
+      margin-top: 64px;
+      padding: 24px 0 40px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--grey);
+    }
+
+    footer a {
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      margin-top: 8px;
+    }
+
+    .footer-links a {
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="wordmark">Thread<span>.</span></div>
+      <div class="tagline">Follow the thread. See where every journal entry leads.</div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="doc-title">Privacy Policy</div>
+    <div class="doc-meta">Last updated: May 2026 &nbsp;&middot;&nbsp; Thread &nbsp;&middot;&nbsp; thread-app.eu</div>
+
+    <h2>What data Thread accesses</h2>
+    <p>Thread connects to your accounting software via OAuth 2.0. When you click Thread on a journal entry, Thread retrieves that entry's line items and your chart of accounts from your accounting software. This data is used solely to render the financial statement impact panel.</p>
+
+    <h2>What data Thread stores</h2>
+    <p>Thread does not store your accounting data. Journal entry data is retrieved on demand and held in memory only for the duration of your session. OAuth tokens are stored securely and encrypted to maintain your connection. Chart of accounts data is cached for up to 24 hours to reduce API calls and is not shared with any third party.</p>
+
+    <h2>What data Thread does not collect</h2>
+    <p>Thread does not collect personal data beyond what is necessary to maintain your OAuth connection. Thread does not use your data for advertising, profiling, analytics, or any purpose other than rendering the financial statement impact of your journal entries. Thread does not train AI or machine learning models on your data.</p>
+
+    <h2>Third parties</h2>
+    <p>Thread uses the following third-party services:</p>
+    <ul>
+      <li>Stripe - payment processing. Stripe's privacy policy applies to all payment data.</li>
+      <li>Intuit / QuickBooks - if you connect a QuickBooks account, Intuit's privacy policy applies to data held within QuickBooks.</li>
+    </ul>
+    <p>Thread does not share your accounting data with any other third party.</p>
+
+    <h2>Your rights under GDPR</h2>
+    <p>If you are based in the European Union, you have the following rights regarding any personal data Thread holds about you:</p>
+    <ul>
+      <li>The right to access your data</li>
+      <li>The right to correct inaccurate data</li>
+      <li>The right to request deletion of your data</li>
+      <li>The right to object to processing</li>
+      <li>The right to data portability</li>
+    </ul>
+    <p>To exercise any of these rights, contact threadapp.eu@gmail.com. Thread will respond within 30 days.</p>
+
+    <h2>Data retention</h2>
+    <p>OAuth credentials are deleted when you disconnect Thread from your accounting software. No accounting data is retained beyond your active session. Subscription and billing records are retained for as long as legally required.</p>
+
+    <h2>Security</h2>
+    <p>Thread uses industry standard encryption for all data in transit (TLS) and at rest (AES-256). OAuth tokens are encrypted before storage. Thread does not log OAuth tokens or accounting data.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>Thread may update this Privacy Policy from time to time. Material changes will be communicated by email to the account holder. Continued use of Thread after changes are published constitutes acceptance of the updated policy.</p>
+
+    <h2>Contact</h2>
+    <p>For any privacy-related questions or to exercise your rights, contact <a href="mailto:threadapp.eu@gmail.com" style="color: #CC0000;">threadapp.eu@gmail.com</a>.</p>
+
+    <footer>
+      <div>Thread &nbsp;&middot;&nbsp; The Hague, Netherlands &nbsp;&middot;&nbsp; <a href="mailto:threadapp.eu@gmail.com">threadapp.eu@gmail.com</a></div>
+      <div class="footer-links">
+        <a href="terms.html">Terms of Service</a>
+        <a href="https://thread-app.eu">thread-app.eu</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

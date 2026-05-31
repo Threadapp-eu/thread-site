@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thread — Follow the thread. See where every journal entry leads.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #CC0000;
+      --red-dark: #990000;
+      --black: #0A0A0A;
+      --white: #FAFAF8;
+      --grey-light: #F0EFE9;
+      --grey-mid: #555;
+      --grey-text: #999;
+      --border: #1e1e1e;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    nav.scrolled { border-color: var(--border); }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span { color: var(--red); }
+
+    .nav-cta {
+      background: var(--red);
+      color: var(--white);
+      padding: 10px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .nav-cta:hover { background: var(--red-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 140px 48px 80px;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      text-align: left;
+      max-width: 560px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-sub { margin-left: 0; margin-right: 0; }
+    .hero-form { margin-left: 0; margin-right: 0; }
+    .hero-note { text-align: left; }
+    .success-msg { text-align: left; }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards 0.1s;
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      color: var(--white);
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards 0.2s;
+    }
+
+    .hero-headline em { font-style: normal; color: var(--white); }
+
+    .leads {
+      font-style: italic;
+      color: var(--white);
+      position: relative;
+      display: inline-block;
+    }
+
+    .leads::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 3px;
+      background: var(--red);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--grey-text);
+      margin-bottom: 40px;
+      max-width: 480px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards 0.3s;
+    }
+
+    .hero-form {
+      display: flex;
+      gap: 0;
+      max-width: 420px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards 0.4s;
+    }
+
+    .hero-form input {
+      flex: 1;
+      padding: 14px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      border: 1.5px solid #2a2a2a;
+      border-right: none;
+      background: #141414;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .hero-form input::placeholder { color: #444; }
+    .hero-form input:focus { border-color: #555; }
+
+    .hero-form button {
+      padding: 14px 28px;
+      background: var(--red);
+      color: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-form button:hover { background: var(--red-dark); }
+
+    .hero-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--grey-mid);
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.5s;
+    }
+
+    /* ── HERO GIF ── */
+    .hero-right {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: 65%;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.3s;
+    }
+
+    .gif-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .gif-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Subtle fade - left edge only to blend with text, very light elsewhere */
+    .gif-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, var(--black) 0%, transparent 20%),
+        linear-gradient(to bottom, var(--black) 0%, transparent 5%, transparent 92%, var(--black) 100%);
+      pointer-events: none;
+    }
+
+    /* ── RED LINE DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 3px;
+      background: var(--red);
+    }
+
+    /* ── SECTION 2 - HOW IT WORKS ── */
+    .section-two {
+      background: var(--black);
+      color: var(--white);
+      padding: 100px 48px;
+    }
+
+    .section-two-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+
+    .section-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+      max-width: 700px;
+    }
+
+    .section-headline em {
+      font-style: italic;
+      color: var(--red);
+    }
+
+    .section-sub {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: #888;
+      max-width: 580px;
+      margin-bottom: 72px;
+    }
+
+    /* ── SCENARIOS ── */
+    .scenarios {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-bottom: 80px;
+    }
+
+    .scenario {
+      background: #161616;
+      padding: 36px 32px;
+      border-top: 2px solid #222;
+      transition: border-color 0.2s;
+      cursor: default;
+    }
+
+    .scenario:hover { border-color: var(--red); }
+
+    .scenario-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #222;
+      line-height: 1;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+
+    .scenario-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .scenario-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: #666;
+      line-height: 1.65;
+    }
+
+    .scenario-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      margin-bottom: 24px;
+      border-radius: 3px;
+      opacity: 0.85;
+    }
+
+    .scenario:hover .scenario-img { opacity: 1; transition: opacity 0.2s; }
+
+    .scenario-tag {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 500;
+    }
+
+    /* ── WHO IT'S FOR ── */
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: #1a1a1a;
+      margin-bottom: 80px;
+    }
+
+    .who-item {
+      background: var(--black);
+      padding: 32px;
+      border-left: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .who-item:hover { border-color: var(--red); }
+
+    .who-role {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .who-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      border-top: 1px solid #1a1a1a;
+      padding-top: 72px;
+    }
+
+    .pricing-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+
+    .pricing-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 48px;
+      max-width: 500px;
+      line-height: 1.1;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+
+    .pricing-card {
+      background: #161616;
+      padding: 32px 28px;
+      border-top: 2px solid #222;
+    }
+
+    .pricing-card.featured {
+      background: #1a0000;
+      border-color: var(--red);
+    }
+
+    .pricing-tier {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .pricing-card.featured .pricing-tier { color: var(--red); }
+
+    .pricing-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+      letter-spacing: -1px;
+    }
+
+    .pricing-sub {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    .pricing-desc {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080808;
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .footer-logo span { color: var(--red); }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: #444;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: #333;
+    }
+
+    /* ── SUCCESS MESSAGE ── */
+    .success-msg {
+      display: none;
+      margin-top: 14px;
+      font-size: 13px;
+      color: #72c97a;
+      font-weight: 500;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeRight {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+
+      .hero {
+        padding: 120px 24px 0;
+      }
+
+      .hero-left { padding-right: 0; }
+
+      .scenarios { grid-template-columns: 1fr; }
+
+      .who-grid { grid-template-columns: 1fr; }
+
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .section-two { padding: 72px 24px; }
+
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        padding: 32px 24px;
+        text-align: center;
+      }
+
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">Thread<span>.</span></a>
+    <button class="nav-cta" onclick="document.getElementById('email').focus(); document.getElementById('hero-form').scrollIntoView({behavior:'smooth'})">
+      Join waitlist
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section style="background: var(--black);">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-eyebrow">For NetSuite and QuickBooks Online</div>
+        <h1 class="hero-headline">
+          Follow the <span style="color: var(--red);">thread.</span><br>
+          See where every<br>
+          journal entry <span class="leads">leads.</span>
+        </h1>
+        <p class="hero-sub">
+          Thread shows the full P&amp;L and balance sheet impact of any journal entry in one click — without leaving your accounting software. No manual tracing. No spreadsheet lookups. Just the complete picture, immediately.
+        </p>
+        <div class="hero-form" id="hero-form">
+          <input type="email" id="email" placeholder="your@email.com" />
+          <button onclick="handleWaitlist()">Join waitlist</button>
+        </div>
+        <div class="hero-note">Early access. No spam. Unsubscribe anytime.</div>
+        <div class="success-msg" id="success-msg">✓ You're on the list. We'll be in touch.</div>
+      </div>
+
+      <div class="hero-right">
+        <div class="gif-wrap">
+          <img src="https://threadapp-eu.github.io/thread-site/Revenue.gif" alt="Thread showing full P&L and balance sheet impact of a journal entry" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SECTION TWO -->
+  <section class="section-two">
+    <div class="section-two-inner">
+
+      <div class="section-label">What Thread does</div>
+      <h2 class="section-headline">
+        Everyone has had that moment.<br>
+        <em>"Does this entry look right to you?"</em>
+      </h2>
+      <p class="section-sub">
+        Approving 50 journal entries on the last day of the quarter. A CFO asking why revenue came in at X when you billed Y. A C-suite that wants to understand their financials but does not know the rules of debits and credits. Thread shows the full P&amp;L and balance sheet impact of any entry in one click — for everyone in the room, not just the accountant who booked it.
+      </p>
+
+      <!-- SCENARIOS -->
+      <div class="scenarios">
+        <div class="scenario">
+          <img src="https://threadapp-eu.github.io/thread-site/Revenue%20-%20Lic%2BMaint.png" alt="ASC 606 revenue recognition in Thread" class="scenario-img" />
+          <div class="scenario-number">01</div>
+          <div class="scenario-title">ASC 606 revenue recognition</div>
+          <div class="scenario-desc">Deferred revenue releasing into multiple performance obligations. See exactly which P&amp;L lines are credited and how the balance sheet liability moves — before approving the entry.</div>
+          <div class="scenario-tag">Revenue accountants</div>
+        </div>
+        <div class="scenario">
+          <img src="https://threadapp-eu.github.io/thread-site/FX%20Gain.png" alt="FX revaluation in Thread" class="scenario-img" />
+          <div class="scenario-number">02</div>
+          <div class="scenario-title">FX revaluation</div>
+          <div class="scenario-desc">The gain/loss direction flips depending on which way the rate moved. Thread shows whether the FX movement lands in Other Income or Other Expenses — instantly, without cross-referencing the chart of accounts.</div>
+          <div class="scenario-tag">Controllers · CFOs</div>
+        </div>
+        <div class="scenario">
+          <img src="https://threadapp-eu.github.io/thread-site/Asset%20Disposal.png" alt="Asset disposal in Thread" class="scenario-img" />
+          <div class="scenario-number">03</div>
+          <div class="scenario-title">Asset disposal</div>
+          <div class="scenario-desc">Net book value, accumulated depreciation, and gain or loss all hitting simultaneously. Thread maps every line to its financial statement position so the full picture is visible before the entry is posted or reversed.</div>
+          <div class="scenario-tag">Controllers · Auditors</div>
+        </div>
+      </div>
+
+      <!-- WHO -->
+      <div class="section-label">Who it is for</div>
+      <div class="who-grid">
+        <div class="who-item">
+          <div class="who-role">Revenue accountant / Controller</div>
+          <div class="who-desc">Confirm complex entries before posting. Understand historical entries before reversing. Move faster through the approval queue at period close.</div>
+        </div>
+        <div class="who-item">
+          <div class="who-role">CFO / CAO</div>
+          <div class="who-desc">Immediate visibility into what any entry does to the financial statements — without needing to understand the debit and credit logic underneath.</div>
+        </div>
+        <div class="who-item">
+          <div class="who-role">FP&amp;A analyst</div>
+          <div class="who-desc">Investigate unusual P&amp;L movements independently. No more waiting for accounting to explain what an entry does before it appears in a board pack.</div>
+        </div>
+        <div class="who-item">
+          <div class="who-role">External auditor</div>
+          <div class="who-desc">"Walk me through this entry" becomes an immediate visual rather than a manual reconstruction exercise. Reduces audit friction on complex transactions.</div>
+        </div>
+      </div>
+
+      <!-- PRICING -->
+      <div class="pricing-section">
+        <div class="pricing-label">Pricing</div>
+        <h3 class="pricing-headline">Simple, transparent,<br>no surprises.</h3>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <div class="pricing-tier">Pay per click</div>
+            <div class="pricing-price">Usage</div>
+            <div class="pricing-sub">Under 25 finance users · billed monthly</div>
+            <div class="pricing-desc">Per pull request. For smaller teams with occasional use.</div>
+          </div>
+          <div class="pricing-card featured">
+            <div class="pricing-tier">Tier 2</div>
+            <div class="pricing-price">€300</div>
+            <div class="pricing-sub">/ month · or €3,500/year</div>
+            <div class="pricing-desc">25–100 finance module users. Unlimited entries.</div>
+          </div>
+          <div class="pricing-card">
+            <div class="pricing-tier">Tier 3</div>
+            <div class="pricing-price">€600</div>
+            <div class="pricing-sub">/ month · or €7,000/year</div>
+            <div class="pricing-desc">100–1,000 finance module users. Unlimited entries.</div>
+          </div>
+          <div class="pricing-card">
+            <div class="pricing-tier">Enterprise</div>
+            <div class="pricing-price">Custom</div>
+            <div class="pricing-sub">1,000+ finance module users</div>
+            <div class="pricing-desc">Contact us for pricing at scale.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Thread<span>.</span></div>
+    <div class="footer-links">
+      <a href="https://threadapp-eu.github.io/thread-site/terms.html" target="_blank">Terms of Service</a>
+      <a href="https://threadapp-eu.github.io/thread-site/privacy.html" target="_blank">Privacy Policy</a>
+      <a href="mailto:threadapp.eu@gmail.com">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 Thread · thread-app.eu</div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Waitlist form
+    function handleWaitlist() {
+      const email = document.getElementById('email').value;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(email)) {
+        document.getElementById('email').style.borderColor = '#CC0000';
+        document.getElementById('email').placeholder = 'Please enter a valid email';
+        return;
+      }
+
+      document.getElementById('email').style.borderColor = '';
+      document.querySelector('.hero-form').style.display = 'none';
+      document.querySelector('.hero-note').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+
+      // TODO: connect to Mailchimp or backend when ready
+      console.log('Waitlist signup:', email);
+    }
+
+    // Allow enter key on email input
+    document.getElementById('email').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleWaitlist();
+    });
+  </script>
+
+</body>
+</html>

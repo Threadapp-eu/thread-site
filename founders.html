@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Thread for Founders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:        #CC0000;
+      --red-dark:   #990000;
+      --ink:        #111111;
+      --ink-mid:    #444444;
+      --ink-light:  #777777;
+      --bg:         #FFFFFF;
+      --bg-off:     #FAFAF8;
+      --border:     #E4E4E0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    nav.scrolled { border-color: var(--border); }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+
+    .nav-cta {
+      background: var(--red);
+      color: #fff;
+      padding: 10px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--red-dark); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 140px 48px 72px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 24px;
+    }
+
+    .page-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+
+    .page-deck {
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--ink-mid);
+      max-width: 640px;
+    }
+
+    /* ── RED RULE ── */
+    .red-rule {
+      width: 100%;
+      height: 3px;
+      background: var(--red);
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 48px 96px;
+    }
+
+    .article p {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink);
+      margin-bottom: 28px;
+    }
+
+    .article p:last-of-type { margin-bottom: 0; }
+
+    /* Code-style debit/credit block */
+    .journal-block {
+      font-family: 'Courier New', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--ink-mid);
+      background: var(--bg-off);
+      border-left: 3px solid var(--border);
+      padding: 20px 24px;
+      margin: 32px 0;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.35;
+      color: var(--ink);
+      border-left: 4px solid var(--red);
+      padding: 4px 0 4px 28px;
+      margin: 48px 0;
+    }
+
+    /* ── SCREENSHOT ── */
+    .screenshot-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 48px 72px;
+    }
+
+    .screenshot-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    }
+
+    .screenshot-caption {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--ink-light);
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* ── CLOSING SECTION ── */
+    .closing {
+      background: var(--bg-off);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 72px 48px;
+    }
+
+    .closing-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .closing-inner p {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink);
+      margin-bottom: 28px;
+    }
+
+    .closing-inner p:last-of-type { margin-bottom: 0; }
+
+    /* ── CTA BLOCK ── */
+    .cta-block {
+      padding: 80px 48px;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3vw, 36px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--ink);
+      margin-bottom: 32px;
+      line-height: 1.15;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      padding: 16px 36px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover { background: var(--red-dark); }
+
+    .cta-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--ink-light);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg-off);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink-mid);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--red); }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--ink); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--ink-light);
+    }
+
+    .footer-trademark {
+      font-size: 11px;
+      color: #bbb;
+      margin-top: 8px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .page-header { padding: 110px 24px 56px; }
+      .article { padding: 56px 24px 72px; }
+      .screenshot-wrap { padding: 0 24px 56px; }
+      .closing { padding: 56px 24px; }
+      .cta-block { padding: 64px 24px; }
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        padding: 32px 24px;
+        text-align: center;
+      }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="/" class="nav-logo">Thread<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="/founders" class="active">For Founders</a></li>
+      <li><a href="/finance-teams">For Finance Teams</a></li>
+      <li><a href="/quickbooks">QuickBooks</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+    </ul>
+    <a href="https://app.thread-app.eu" class="nav-cta">Try Thread</a>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-eyebrow">Thread for Founders</div>
+    <h1 class="page-headline">You can read your P&amp;L.<br>You just can't investigate it.</h1>
+    <p class="page-deck">
+      Double entry bookkeeping is the building block of your financials. Every number on your P&amp;L, every line on your balance sheet — it all starts with a journal entry.
+    </p>
+  </div>
+
+  <div class="red-rule"></div>
+
+  <!-- ARTICLE -->
+  <div class="article">
+
+    <p>
+      Most founders will admit they don't fully understand their own bookkeeping. The moment the numbers go one layer deeper than the dashboard, they're flying blind.
+    </p>
+
+    <p>
+      You took the crash course. You know how a sale should hit revenue. You know a loan lands on the balance sheet. You get the concepts.
+    </p>
+
+    <p>
+      But when something looks off — a tax refund that came in way lower than expected, a revenue line that looks light, an expense that crept up quietly — and you open your accounting software looking for answers, you're immediately hit with:
+    </p>
+
+    <div class="journal-block">
+      DR &nbsp;Accounts Receivable &nbsp;&nbsp;&nbsp;10,000<br>
+      CR &nbsp;Sales Revenue &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10,000
+    </div>
+
+    <p>
+      And you zone out. Tab closed. Accountant messaged — which is never actually quick, never actually just one question, and costs you time and money every single time.
+    </p>
+
+    <div class="pull-quote">
+      No founder or CFO is poring through journal entries on a Tuesday afternoon.
+    </div>
+
+    <p>
+      But when something looks off and you're forced to look at one, you should be able to understand what you're seeing — without your accountant on call, without a billable hour, without feeling like your own books are locked behind a language you never learned.
+    </p>
+
+    <p>
+      That's what Thread is for.
+    </p>
+
+    <p>
+      Click any journal entry and see exactly where it flows — which line hits your P&amp;L, which lands on your balance sheet, what it actually did to your numbers. No debits. No credits. No jargon.
+    </p>
+
+  </div>
+
+  <!-- SCREENSHOT -->
+  <div class="screenshot-wrap">
+    <img
+      src="https://threadapp-eu.github.io/thread-site/screenshot-license-maintenance.png"
+      alt="Thread showing the full P&L and balance sheet impact of a journal entry"
+    />
+    <p class="screenshot-caption">Thread showing the full P&amp;L and balance sheet impact of a licence and maintenance revenue entry.</p>
+  </div>
+
+  <!-- CLOSING TEXT -->
+  <div class="closing">
+    <div class="closing-inner">
+      <p>
+        You already know what you're looking at.
+      </p>
+      <p>
+        You know what revenue is. You know what a liability is. What you don't need to know is why a credit increases one and decreases the other. Thread handles that. You just see where each line landed.
+      </p>
+      <p>
+        You already understand your business. Thread just lets you see inside it.
+      </p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <h2 class="cta-headline">See inside your own books.<br>No accountant required.</h2>
+    <a href="https://app.thread-app.eu" class="cta-btn">Try Thread free for 7 days</a>
+    <p class="cta-note">No credit card needed.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/" class="footer-logo">Thread<span>.</span></a>
+    <div class="footer-links">
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="mailto:threadapp.eu@gmail.com">Contact</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Thread &middot; thread-app.eu</div>
+    <div class="footer-trademark">Intuit and QuickBooks are registered trademarks of Intuit Inc. Used with permission.</div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+
+</body>
+</html>

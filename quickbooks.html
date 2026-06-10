@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Thread for QuickBooks Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:        #CC0000;
+      --red-dark:   #990000;
+      --ink:        #111111;
+      --ink-mid:    #444444;
+      --ink-light:  #777777;
+      --bg:         #FFFFFF;
+      --bg-off:     #FAFAF8;
+      --border:     #E4E4E0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-color: var(--border); }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+
+    .nav-cta {
+      background: var(--red);
+      color: #fff;
+      padding: 10px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--red-dark); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 140px 48px 72px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 24px;
+    }
+
+    .page-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+
+    .page-deck {
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--ink-mid);
+      max-width: 640px;
+    }
+
+    /* ── RED RULE ── */
+    .red-rule { width: 100%; height: 3px; background: var(--red); }
+
+    /* ── BENEFITS ── */
+    .benefits-section {
+      padding: 80px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 40px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .benefit-card {
+      background: var(--bg-off);
+      padding: 36px 32px;
+      border-top: 2px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .benefit-card:hover { border-color: var(--red); }
+
+    .benefit-icon {
+      font-size: 28px;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+
+    .benefit-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .benefit-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.65;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      background: var(--bg-off);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 48px;
+    }
+
+    .how-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .how-inner .section-label { margin-bottom: 32px; }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 28px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+
+    .step-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 40px;
+      padding-top: 2px;
+      letter-spacing: -1px;
+    }
+
+    .step-body {}
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.65;
+    }
+
+    .readonly-notice {
+      margin-top: 32px;
+      padding: 20px 24px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--red);
+    }
+
+    .readonly-notice p {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      line-height: 1.6;
+    }
+
+    .readonly-notice p + p {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--ink-light);
+    }
+
+    /* ── VIDEO ── */
+    .video-section {
+      padding: 80px 48px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .video-section .section-label { margin-bottom: 24px; }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    /* ── FAQ ── */
+    .faq-section {
+      background: var(--bg-off);
+      border-top: 1px solid var(--border);
+      padding: 80px 48px;
+    }
+
+    .faq-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .faq-inner .section-label { margin-bottom: 40px; }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+
+    .faq-q {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .faq-a {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+    }
+
+    /* ── CTA BLOCK ── */
+    .cta-block {
+      padding: 80px 48px;
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3vw, 36px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--ink);
+      margin-bottom: 36px;
+      line-height: 1.15;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn-primary {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      padding: 16px 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+    .cta-btn-primary:hover { background: var(--red-dark); }
+
+    .cta-btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--ink);
+      padding: 16px 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      text-decoration: none;
+      border: 1.5px solid var(--border);
+      letter-spacing: 0.02em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .cta-btn-secondary:hover { border-color: var(--ink); color: var(--ink); }
+
+    .cta-note {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--ink-light);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg-off);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink-mid);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--red); }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-copy { font-size: 12px; color: var(--ink-light); }
+    .footer-trademark {
+      font-size: 11px;
+      color: #bbb;
+      margin-top: 8px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .page-header { padding: 110px 24px 56px; }
+      .benefits-section { padding: 64px 24px; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .how-section { padding: 64px 24px; }
+      .video-section { padding: 64px 24px; }
+      .faq-section { padding: 64px 24px; }
+      .cta-block { padding: 64px 24px; }
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        padding: 32px 24px;
+        text-align: center;
+      }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="/" class="nav-logo">Thread<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="/founders">For Founders</a></li>
+      <li><a href="/finance-teams">For Finance Teams</a></li>
+      <li><a href="/quickbooks" class="active">QuickBooks</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+    </ul>
+    <a href="https://app.thread-app.eu" class="nav-cta">Try Thread</a>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-eyebrow">Thread for QuickBooks Online</div>
+    <h1 class="page-headline">Visualize where every journal entry flows.</h1>
+    <p class="page-deck">
+      See the full P&amp;L and balance sheet impact of any transaction in your QuickBooks Online company — in one click.
+    </p>
+  </div>
+
+  <div class="red-rule"></div>
+
+  <!-- BENEFITS -->
+  <div class="benefits-section">
+    <div class="section-label">Key benefits</div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">⚡</div>
+        <div class="benefit-title">Instant financial statement impact</div>
+        <div class="benefit-desc">See exactly which P&amp;L and balance sheet lines any journal entry affects — without leaving the entry or mentally running through debit and credit rules.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">✓</div>
+        <div class="benefit-title">Eliminates guesswork at period close</div>
+        <div class="benefit-desc">Instantly see the full financial statement flow of every posted entry, so reviewing and reconciling takes minutes instead of hours.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">↩</div>
+        <div class="benefit-title">One click before you reverse</div>
+        <div class="benefit-desc">Understand exactly what a historical entry did to the financial statements before touching it — with no cross-referencing or manual tracing required.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-section">
+    <div class="how-inner">
+      <div class="section-label">How it works with QuickBooks</div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-body">
+            <div class="step-title">Connect with one click from the Intuit App Store</div>
+            <div class="step-desc">Click <em>Get App Now</em> on the Intuit App Store and connect directly to your QuickBooks Online company using your existing Intuit login.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-body">
+            <div class="step-title">No configuration required</div>
+            <div class="step-desc">Thread works with your existing chart of accounts automatically — no mapping, no setup, no manual configuration.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-body">
+            <div class="step-title">Filter, click Thread, see the impact</div>
+            <div class="step-desc">Filter by date range or specific account, then click Thread on any entry to instantly see the full P&amp;L and balance sheet impact in a side panel.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="readonly-notice">
+        <p>Thread is entirely read-only. No data is ever created, modified, or deleted in your QuickBooks Online company.</p>
+        <p>Thread connects to QuickBooks Online only. QuickBooks Desktop is not supported.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="video-section">
+    <div class="section-label">See Thread in action</div>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/YtPXfMTk_Xg"
+        title="Thread for QuickBooks Online — product walkthrough"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <div class="faq-inner">
+      <div class="section-label">Frequently asked questions</div>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-q">Does Thread modify any data in QuickBooks Online?</div>
+          <div class="faq-a">No. Thread is entirely read-only. It connects to QuickBooks Online via OAuth 2.0 to read your journal entries and chart of accounts. No data is ever created, modified, or deleted.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">How does Thread connect to QuickBooks Online?</div>
+          <div class="faq-a">Thread uses OAuth 2.0 to connect to your QuickBooks Online company. Your administrator authorises the connection once, and Thread uses your company's own QuickBooks Online setup to display the financial statement impact of each entry. You can disconnect at any time.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">What types of transactions does Thread support?</div>
+          <div class="faq-a">Thread supports all major QuickBooks Online transaction types including journal entries, invoices, bills, purchases, payments, sales receipts, credit memos, transfers, and more.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Is my QuickBooks Online data secure?</div>
+          <div class="faq-a">Yes. Thread is entirely read-only — it never creates, modifies, or deletes any data in your QuickBooks Online company. Thread does not store your transaction data. Each time you click Thread on an entry, it reads directly from your live QuickBooks Online company and displays the result. Your data stays in QuickBooks Online where it belongs.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <h2 class="cta-headline">Connect your QuickBooks Online company in minutes.</h2>
+    <div class="cta-buttons">
+      <a href="https://app.thread-app.eu" class="cta-btn-primary">Start your free trial</a>
+      <a href="/pricing" class="cta-btn-secondary">See pricing</a>
+    </div>
+    <p class="cta-note">No credit card needed. Read-only access. Disconnect at any time.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/" class="footer-logo">Thread<span>.</span></a>
+    <div class="footer-links">
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="mailto:threadapp.eu@gmail.com">Contact</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Thread &middot; thread-app.eu</div>
+    <div class="footer-trademark">Intuit and QuickBooks are registered trademarks of Intuit Inc. Used with permission.</div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+
+</body>
+</html>

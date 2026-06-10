@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Thread for NetSuite — Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:        #CC0000;
+      --red-dark:   #990000;
+      --ink:        #111111;
+      --ink-mid:    #444444;
+      --ink-light:  #777777;
+      --bg:         #FFFFFF;
+      --bg-off:     #FAFAF8;
+      --border:     #E4E4E0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+
+    .nav-cta {
+      background: var(--red);
+      color: #fff;
+      padding: 10px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--red-dark); }
+
+    /* ── COMING SOON BODY ── */
+    .coming-soon {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 48px 80px;
+    }
+
+    .coming-soon-inner {
+      max-width: 560px;
+      text-align: center;
+    }
+
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 28px;
+    }
+
+    .coming-soon-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+
+    .coming-soon-body {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink-mid);
+      margin-bottom: 48px;
+    }
+
+    /* Waitlist form */
+    .waitlist-form {
+      display: flex;
+      gap: 0;
+      max-width: 400px;
+      margin: 0 auto 16px;
+    }
+
+    .waitlist-form input {
+      flex: 1;
+      padding: 14px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      border: 1.5px solid var(--border);
+      border-right: none;
+      background: var(--bg);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .waitlist-form input::placeholder { color: #aaa; }
+    .waitlist-form input:focus { border-color: var(--ink-mid); }
+
+    .waitlist-form button {
+      padding: 14px 24px;
+      background: var(--red);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .waitlist-form button:hover { background: var(--red-dark); }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--ink-light);
+    }
+
+    .success-msg {
+      display: none;
+      font-size: 14px;
+      color: #2a7a2a;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg-off);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink-mid);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--red); }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-copy { font-size: 12px; color: var(--ink-light); }
+    .footer-trademark {
+      font-size: 11px;
+      color: #bbb;
+      margin-top: 8px;
+      width: 100%;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .coming-soon { padding: 100px 24px 60px; }
+      .waitlist-form { flex-direction: column; }
+      .waitlist-form input { border-right: 1.5px solid var(--border); border-bottom: none; }
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        padding: 32px 24px;
+        text-align: center;
+      }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">Thread<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="/founders">For Founders</a></li>
+      <li><a href="/finance-teams">For Finance Teams</a></li>
+      <li><a href="/quickbooks">QuickBooks</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+    </ul>
+    <a href="https://app.thread-app.eu" class="nav-cta">Try Thread</a>
+  </nav>
+
+  <!-- COMING SOON -->
+  <div class="coming-soon">
+    <div class="coming-soon-inner">
+      <div class="page-eyebrow">Thread for NetSuite</div>
+      <h1 class="coming-soon-headline">Coming soon.</h1>
+      <p class="coming-soon-body">
+        Thread for NetSuite is in development. Join the waitlist to be notified when it launches.
+      </p>
+
+      <div class="waitlist-form" id="netsuite-form">
+        <input type="email" id="ns-email" placeholder="your@email.com" />
+        <button onclick="handleNSWaitlist()">Join waitlist</button>
+      </div>
+      <div class="form-note">No spam. Unsubscribe anytime.</div>
+      <div class="success-msg" id="ns-success">✓ You're on the list. We'll be in touch when Thread for NetSuite launches.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/" class="footer-logo">Thread<span>.</span></a>
+    <div class="footer-links">
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="mailto:threadapp.eu@gmail.com">Contact</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Thread &middot; thread-app.eu</div>
+    <div class="footer-trademark">Intuit and QuickBooks are registered trademarks of Intuit Inc. Used with permission.</div>
+  </footer>
+
+  <script>
+    function handleNSWaitlist() {
+      const email = document.getElementById('ns-email').value;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        document.getElementById('ns-email').style.borderColor = '#CC0000';
+        document.getElementById('ns-email').placeholder = 'Please enter a valid email';
+        return;
+      }
+      document.getElementById('netsuite-form').style.display = 'none';
+      document.querySelector('.form-note').style.display = 'none';
+      document.getElementById('ns-success').style.display = 'block';
+      console.log('NetSuite waitlist:', email);
+    }
+
+    document.getElementById('ns-email').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleNSWaitlist();
+    });
+  </script>
+
+</body>
+</html>

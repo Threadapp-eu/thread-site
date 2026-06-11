@@ -211,6 +211,44 @@
       font-weight: 500;
     }
 
+    /* ── HERO CARDS ── */
+    .hero-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      position: relative;
+      z-index: 2;
+      margin-left: 40px;
+      flex-shrink: 0;
+    }
+
+    .hero-card {
+      background: var(--bg-off);
+      border-top: 2px solid var(--border);
+      padding: 28px 32px;
+      min-width: 200px;
+      transition: border-color 0.2s;
+      text-decoration: none;
+      display: block;
+    }
+    .hero-card:hover { border-color: var(--red); }
+
+    .hero-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .hero-card-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--red);
+      letter-spacing: 0.02em;
+    }
+
     /* ── HERO GIF ── */
     .hero-right {
       position: absolute;
@@ -425,7 +463,6 @@
   <section style="background: var(--bg);">
     <div class="hero">
       <div class="hero-left">
-        <div class="hero-eyebrow">For QuickBooks Online</div>
         <h1 class="hero-headline">
           Follow the <span style="color: var(--red);">thread.</span><br>
           See where every<br>
@@ -442,6 +479,17 @@
         <div class="success-msg" id="success-msg">&#10003; You're on the list. We'll be in touch.</div>
       </div>
 
+      <div class="hero-cards">
+        <a href="/founders" class="hero-card">
+          <div class="hero-card-title">For Founders</div>
+          <div class="hero-card-link">See more &rarr;</div>
+        </a>
+        <a href="/finance-teams" class="hero-card">
+          <div class="hero-card-title">For Finance Teams</div>
+          <div class="hero-card-link">See more &rarr;</div>
+        </a>
+      </div>
+
       <div class="hero-right">
         <div class="gif-wrap">
           <img src="https://threadapp-eu.github.io/thread-site/hero-light.gif" alt="Thread showing full P&L and balance sheet impact of a journal entry" />
@@ -451,32 +499,6 @@
   </section>
 
   <div class="divider"></div>
-
-  <!-- PATH CARDS -->
-  <section class="paths">
-    <div class="paths-inner">
-      <div class="paths-label">Who Thread is for</div>
-      <div class="paths-grid">
-
-        <div class="path-card">
-          <div class="path-title">For Founders</div>
-          <p class="path-desc">
-            You know what revenue is. You know what a liability is. Thread shows you exactly where every journal entry lands in your financials — without needing to know the debit and credit logic underneath.
-          </p>
-          <a href="/founders" class="path-link">See more &rarr;</a>
-        </div>
-
-        <div class="path-card">
-          <div class="path-title">For Finance Teams</div>
-          <p class="path-desc">
-            Thread removes the step where you mentally trace each line through the chart of accounts. See the full financial statement impact of any entry at the point of review — period close moves faster.
-          </p>
-          <a href="/finance-teams" class="path-link">See more &rarr;</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
 
   <!-- FOOTER -->
   <footer>

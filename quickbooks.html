@@ -379,6 +379,143 @@
       color: var(--ink-light);
     }
 
+    /* ── QBO PRICING ── */
+    .qbo-pricing-section {
+      padding: 80px 48px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .qbo-pricing-section .section-label { margin-bottom: 16px; }
+
+    .qbo-pricing-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3vw, 36px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--ink);
+      margin-bottom: 12px;
+      line-height: 1.15;
+    }
+
+    .qbo-pricing-deck {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      margin-bottom: 48px;
+    }
+
+    .qbo-plan-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .qbo-plan-card {
+      background: var(--bg-off);
+      padding: 32px 28px 36px;
+      border-top: 2px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .qbo-plan-card.featured {
+      background: #fff8f8;
+      border-color: var(--red);
+    }
+
+    .qbo-plan-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      background: #fff0f0;
+      border: 1px solid #f5cccc;
+      padding: 3px 8px;
+      margin-bottom: 16px;
+      align-self: flex-start;
+    }
+
+    .qbo-plan-name {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 6px;
+    }
+
+    .qbo-plan-card.featured .qbo-plan-name { color: var(--red); }
+
+    .qbo-plan-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .qbo-plan-period {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-light);
+      margin-bottom: 20px;
+    }
+
+    .qbo-plan-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.6;
+      margin-bottom: 28px;
+      flex-grow: 1;
+    }
+
+    .qbo-plan-cta {
+      display: block;
+      text-align: center;
+      padding: 12px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      border: 1.5px solid var(--border);
+      color: var(--ink-mid);
+    }
+
+    .qbo-plan-cta:hover { border-color: var(--ink); color: var(--ink); }
+
+    .qbo-plan-card.featured .qbo-plan-cta {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+    }
+
+    .qbo-plan-card.featured .qbo-plan-cta:hover {
+      background: var(--red-dark);
+      border-color: var(--red-dark);
+    }
+
+    .qbo-pricing-note {
+      font-size: 12px;
+      color: var(--ink-light);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 900px) {
+      .qbo-pricing-section { padding: 64px 24px; }
+      .qbo-plan-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--bg-off);
@@ -560,14 +697,45 @@
     </div>
   </div>
 
-  <!-- CTA -->
-  <div class="cta-block">
-    <h2 class="cta-headline">Connect your QuickBooks Online company in minutes.</h2>
-    <div class="cta-buttons">
-      <a href="https://app.thread-app.eu" class="cta-btn-primary">Start your free trial</a>
-      <a href="/pricing" class="cta-btn-secondary">See pricing</a>
+  <!-- QBO PRICING -->
+  <div class="qbo-pricing-section">
+    <div class="section-label">Pricing</div>
+    <h2 class="qbo-pricing-headline">Simple pricing for QuickBooks Online.</h2>
+    <p class="qbo-pricing-deck">Start free, then keep going for less than a coffee a month.</p>
+
+    <div class="qbo-plan-grid">
+
+      <!-- Free trial -->
+      <div class="qbo-plan-card">
+        <div class="qbo-plan-name">Free trial</div>
+        <div class="qbo-plan-price">Free</div>
+        <div class="qbo-plan-period">7 days, no credit card needed</div>
+        <div class="qbo-plan-desc">Full access to Thread for 7 days. Connect your QuickBooks Online company and see the financial statement impact of any entry immediately.</div>
+        <a href="https://www.creem.io/test/payment/prod_48U71rb4W4c0UiHjC75f8V" class="qbo-plan-cta">Start free trial</a>
+      </div>
+
+      <!-- Monthly - featured -->
+      <div class="qbo-plan-card featured">
+        <div class="qbo-plan-badge">Most popular</div>
+        <div class="qbo-plan-name">Monthly</div>
+        <div class="qbo-plan-price">$5</div>
+        <div class="qbo-plan-period">/ month</div>
+        <div class="qbo-plan-desc">Full access, billed monthly. Cancel any time. Includes all current and future features for QuickBooks Online.</div>
+        <a href="https://www.creem.io/test/payment/prod_48U71rb4W4c0UiHjC75f8V" class="qbo-plan-cta">Get started</a>
+      </div>
+
+      <!-- Annual -->
+      <div class="qbo-plan-card">
+        <div class="qbo-plan-name">Annual</div>
+        <div class="qbo-plan-price">$55</div>
+        <div class="qbo-plan-period">/ year &mdash; save $5</div>
+        <div class="qbo-plan-desc">Full access for a full year, billed once. Best value if you know you'll use Thread regularly at period close.</div>
+        <a href="https://www.creem.io/test/payment/prod_7aYcdZ9PtouDHJs0a8B3Ac" class="qbo-plan-cta">Get started</a>
+      </div>
+
     </div>
-    <p class="cta-note">No credit card needed. Read-only access. Disconnect at any time.</p>
+
+    <p class="qbo-pricing-note">Read-only access. No data is ever modified in your QuickBooks Online company. Disconnect at any time.</p>
   </div>
 
   <!-- FOOTER -->

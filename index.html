@@ -209,6 +209,8 @@
       font-size: 13px;
       color: #2a7a2a;
       font-weight: 500;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
     }
 
     /* ── HERO CARDS ── */
@@ -471,13 +473,14 @@
         <p class="hero-sub">
           Thread shows the full P&amp;L and balance sheet impact of any journal entry in one click - without leaving the entry. No second-guessing. No mental run-through of debit and credit rules. Just the complete picture, immediately.
         </p>
-        <form class="hero-form" method="POST" action="https://b2036c2a.sibforms.com/serve/MUIFALHtKY8VI2EiPdCsG-XRtF75Rr98giNHFiBc8bX6pyhhKjuj1FxKJ_9nuSFCo263hriWxVUet_ccWlOkZ2EkHfS3vqC09ATXK8y4AUuYlF8pLb86XXfGjjrWU8Fg8r_u65PDxNl1O2XmN7QzW3CMcvWbSwMvR6aKm_fwmt8n-I9hA8WMPdsKTIRzwIrFi_hg6naIzJha2FFE9Q==">
-          <input type="email" name="EMAIL" placeholder="your@email.com" required />
+        <form class="hero-form" id="waitlist-form">
+          <input type="email" name="EMAIL" id="waitlist-email" placeholder="your@email.com" required />
           <button type="submit">Join waitlist</button>
           <input type="text" name="email_address_check" value="" style="display:none">
           <input type="hidden" name="locale" value="en">
         </form>
-        <div class="hero-note">Early access. No spam. Unsubscribe anytime.</div>
+        <div class="hero-note" id="hero-note">Early access. No spam. Unsubscribe anytime.</div>
+        <div class="success-msg" id="success-msg">&#10003; You&#8217;re on the waitlist. We&#8217;ll be in touch when Thread launches.</div>
       </div>
 
       <div class="hero-cards">
@@ -517,6 +520,22 @@
     // Nav scroll effect
     window.addEventListener('scroll', () => {
       document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Waitlist form — AJAX submission to Brevo
+    document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = this;
+      const data = new FormData(form);
+      fetch('https://b2036c2a.sibforms.com/serve/MUIFALHtKY8VI2EiPdCsG-XRtF75Rr98giNHFiBc8bX6pyhhKjuj1FxKJ_9nuSFCo263hriWxVUet_ccWlOkZ2EkHfS3vqC09ATXK8y4AUuYlF8pLb86XXfGjjrWU8Fg8r_u65PDxNl1O2XmN7QzW3CMcvWbSwMvR6aKm_fwmt8n-I9hA8WMPdsKTIRzwIrFi_hg6naIzJha2FFE9Q==', {
+        method: 'POST',
+        body: data,
+        mode: 'no-cors'
+      }).finally(() => {
+        form.style.display = 'none';
+        document.getElementById('hero-note').style.display = 'none';
+        document.getElementById('success-msg').style.display = 'block';
+      });
     });
   </script>
 
